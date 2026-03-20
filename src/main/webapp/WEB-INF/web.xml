@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                             https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+
+    <display-name>MoneyWeb Application</display-name>
+
+    <!-- Welcome Page -->
+    <servlet>
+        <servlet-name>WelcomePage</servlet-name>
+        <servlet-class>app.WelcomePage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WelcomePage</servlet-name>
+        <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
+
+    <!-- About Us Page -->
+    <servlet>
+        <servlet-name>AboutUsPage</servlet-name>
+        <servlet-class>app.AboutUsPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AboutUsPage</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+
+    <!-- Register Page -->
+    <servlet>
+        <servlet-name>RegisterPage</servlet-name>
+        <servlet-class>app.RegisterPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterPage</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+
+    <!-- Transaction Page -->
+    <servlet>
+        <servlet-name>TransactionPage</servlet-name>
+        <servlet-class>app.TransactionPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TransactionPage</servlet-name>
+        <url-pattern>/transaction</url-pattern>
+    </servlet-mapping>
+
+    <!-- Logout Page -->
+    <servlet>
+        <servlet-name>LogoutPage</servlet-name>
+        <servlet-class>app.LogoutPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutPage</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <!-- Default welcome file -->
+    <welcome-file-list>
+        <welcome-file>welcome</welcome-file>
+    </welcome-file-list>
+</web-app>
