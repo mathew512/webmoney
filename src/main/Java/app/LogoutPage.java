@@ -13,16 +13,22 @@ import java.io.PrintWriter;
 public class LogoutPage extends GenericServlet {
     @Override
     public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
+        // Set response type to HTML
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
 
+        // Cast to HttpServletRequest to access session features
         HttpServletRequest httpReq = (HttpServletRequest) req;
-        HttpSession session = httpReq.getSession(false); // get existing session, don’t create new
 
+        // Get the existing session (false = don’t create a new one if none exists)
+        HttpSession session = httpReq.getSession(false);
+
+        // If a session exists, invalidate it (clear all stored attributes)
         if (session != null) {
-            session.invalidate(); // clear all session data
+            session.invalidate();
         }
 
+        // Build the HTML response
         writer.println("<!DOCTYPE html>");
         writer.println("<html><head><title>Logout - MoneyWeb</title>");
         writer.println("<style>");
@@ -33,7 +39,10 @@ public class LogoutPage extends GenericServlet {
         writer.println("</style>");
         writer.println("</head><body>");
 
+        // Header message
         writer.println("<header><h1>You Have Logged Out</h1></header>");
+
+        // Confirmation section
         writer.println("<section>");
         writer.println("<p>Your session has been cleared. Thank you for using MoneyWeb.</p>");
         writer.println("<p><a href='welcome'>Return to Home Page &raquo;</a></p>");

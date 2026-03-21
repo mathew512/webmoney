@@ -1,6 +1,7 @@
 package app;
 
-import jakarta.servlet.GenericServlet;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -8,44 +9,40 @@ import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class AboutUsPage extends GenericServlet {
+public class AboutUsPage implements Servlet {
+    // Holds servlet configuration info (like init parameters)
+    private ServletConfig config;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        // Called once when the servlet is first created
+        this.config = config;
+    }
+
+    @Override
+    public ServletConfig getServletConfig() {
+        // Returns the servlet configuration object
+        return config;
+    }
+
     @Override
     public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
+        // Called for every request. Here we generate the HTML response.
+        resp.setContentType("text/html"); // Tell browser this is HTML
+        PrintWriter writer = resp.getWriter(); // Writer to send output
 
+        // Build the HTML page
         writer.println("<!DOCTYPE html>");
-        writer.println("<html><head><title>About Us - MoneyWeb</title>");
-        writer.println("<style>");
-        writer.println("body { font-family: Arial; margin: 40px; background-color: #f4f6f8; }");
-        writer.println("header { background-color: #2c3e50; color: white; padding: 15px; }");
-        writer.println("section { margin-top: 20px; padding: 15px; background: white; border-radius: 5px; }");
-        writer.println("img { float: right; margin-left: 20px; max-width: 250px; border-radius: 8px; }");
-        writer.println("a { color: #34980b; text-decoration: none; font-weight: bold; }");
-        writer.println("</style>");
-        writer.println("</head><body>");
+        writer.println("<html><head><title>About Us - MoneyWeb</title></head><body>");
+        writer.println("<h1>About MoneyWeb</h1>");
+        writer.println("<p>This servlet demonstrates the raw Servlet interface implementation.</p>");
 
-        // Header
-        writer.println("<header><h1>About MoneyWeb</h1></header>");
-
-        // Who we are with image
-        // writer.println("<section>");
-        // writer.println("<img src='https://drive.google.com/uc?export=view&id=YOUR_FILE_ID' alt='MoneyWeb illustration'/>");
-        // writer.println("<h2>Who We Are</h2>");
-        // writer.println("<p>MoneyWeb is a financial management portal designed to help users simulate and understand how digital money platforms operate. "
-        //             + "It provides a simple environment to register accounts, track balances, and perform transactions in a way that mirrors real-world online banking systems.</p>");
-        // writer.println("</section>");
-                
-
-        // Mission
-        writer.println("<section>");
+        // Mission section
         writer.println("<h2>Our Mission</h2>");
-        writer.println("<p>We aim to make financial literacy accessible by showing how deposits, withdrawals, and transfers work in a secure, web-based environment. "
-                     + "MoneyWeb demonstrates the flow of funds, account creation, and transaction history so users can grasp the essentials of money management online.</p>");
-        writer.println("</section>");
+        writer.println("<p>We aim to make financial literacy accessible by showing how deposits, withdrawals, "
+                     + "and transfers work in a secure, web-based environment.</p>");
 
-        // Features
-        writer.println("<section>");
+        // Features section
         writer.println("<h2>Features</h2>");
         writer.println("<ul>");
         writer.println("<li>Account registration with clear forms</li>");
@@ -53,21 +50,23 @@ public class AboutUsPage extends GenericServlet {
         writer.println("<li>Dashboard with balance overview</li>");
         writer.println("<li>Secure session handling for each user</li>");
         writer.println("</ul>");
-        writer.println("</section>");
 
-        // Registration alignment
-        writer.println("<section style='text-align:center;'>");
-        writer.println("<h2>Get Started</h2>");
-        writer.println("<p>Ready to experience MoneyWeb? Head over to the registration page and create your account. "
-                     + "Once registered, you’ll be able to log in, view your dashboard, and start simulating transactions.</p>");
+        // Navigation links
         writer.println("<p><a href='register'>Go to Registration &raquo;</a></p>");
-        writer.println("</section>");
-
-        // Navigation
-        writer.println("<section>");
-        writer.println("<a href='welcome'>&larr; Back to Welcome</a>");
-        writer.println("</section>");
+        writer.println("<p><a href='welcome'>&larr; Back to Welcome</a></p>");
 
         writer.println("</body></html>");
+    }
+
+    @Override
+    public String getServletInfo() {
+        // Returns a short description of this servlet
+        return "AboutUsPage implemented via Servlet interface";
+    }
+
+    @Override
+    public void destroy() {
+        // Called once when the servlet is being taken out of service
+        // Cleanup logic can go here if needed
     }
 }

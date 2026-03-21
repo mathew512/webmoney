@@ -57,6 +57,17 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
+    <!-- Login Page -->
+    <servlet>
+        <servlet-name>LoginPage</servlet-name>
+        <servlet-class>app.LoginPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginPage</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+
     <!-- Default welcome file -->
     <welcome-file-list>
         <welcome-file>welcome</welcome-file>

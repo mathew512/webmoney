@@ -11,11 +11,17 @@ import java.io.PrintWriter;
 public class WelcomePage extends GenericServlet {
     @Override
     public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
+        // Set the response type to HTML so the browser knows how to render it
         resp.setContentType("text/html");
+
+        // Get a PrintWriter to send HTML content back to the client
         PrintWriter writer = resp.getWriter();
 
+        // Begin building the HTML page
         writer.println("<!DOCTYPE html>");
         writer.println("<html><head><title>Welcome - MoneyWeb</title>");
+        
+        // Inline CSS styling for layout and design
         writer.println("<style>");
         writer.println("body { font-family: Arial; margin: 40px; background-color: #f4f6f8; }");
         writer.println("header { background-color: #2980b9; color: white; padding: 20px; text-align: center; }");
@@ -26,17 +32,17 @@ public class WelcomePage extends GenericServlet {
         writer.println("</style>");
         writer.println("</head><body>");
 
-        // Header
+        // Header section
         writer.println("<header><h1>Welcome to MoneyWeb</h1></header>");
 
-        // Navigation menu
+        // Navigation menu with links to other servlets
         writer.println("<nav>");
         writer.println("<a href='about'>About Us</a>");
         writer.println("<a href='register'>Register</a>");
         writer.println("<a href='transaction'>Transactions</a>");
         writer.println("</nav>");
 
-        // Intro section
+        // Introductory section explaining the portal
         writer.println("<section>");
         writer.println("<h2>Your Financial Portal</h2>");
         writer.println("<p>MoneyWeb is your gateway to understanding how online money platforms work. "
@@ -44,7 +50,7 @@ public class WelcomePage extends GenericServlet {
                      + "with digital finance in a safe environment.</p>");
         writer.println("</section>");
 
-        // Call to action
+        // Call-to-action section encouraging registration
         writer.println("<section>");
         writer.println("<h2>Get Started</h2>");
         writer.println("<p>Create your account today and explore the dashboard to manage your balance, "
@@ -52,6 +58,7 @@ public class WelcomePage extends GenericServlet {
         writer.println("<p><a href='register'>Register Now &raquo;</a></p>");
         writer.println("</section>");
 
+        // Footer navigation including logout
         writer.println("<nav>");
         writer.println("<a href='about'>About Us</a>");
         writer.println("<a href='register'>Register</a>");
@@ -59,7 +66,7 @@ public class WelcomePage extends GenericServlet {
         writer.println("<a href='logout' style='color:#c0392b;'>Logout</a>");
         writer.println("</nav>");
 
-
+        // Close HTML document
         writer.println("</body></html>");
     }
 }

@@ -1,26 +1,19 @@
 package app;
 
-import jakarta.servlet.GenericServlet;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class RegisterPage extends GenericServlet {
+public class RegisterPage extends HttpServlet {
     @Override
-    public void service(ServletRequest req, ServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // Display the registration form when accessed via GET
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
-
-        HttpServletRequest httpReq = (HttpServletRequest) req;
-        HttpSession session = httpReq.getSession(true);
-
-        String username = req.getParameter("username");
-        String email = req.getParameter("email");
 
         writer.println("<!DOCTYPE html>");
         writer.println("<html><head><title>Register - MoneyWeb</title>");
@@ -37,27 +30,49 @@ public class RegisterPage extends GenericServlet {
 
         writer.println("<header><h1>Register for MoneyWeb</h1></header>");
 
-        if (username != null && email != null) {
-            // Save username in session
-            session.setAttribute("username", username);
-            session.setAttribute("balance", 0.0); // initialize balance
+        // Registration form (POST method now)
+        writer.println("<section>");
+        writer.println("<h2>Create Your Account</h2>");
+        writer.println("<form method='POST' action='register'>");
+        writer.println("<input type='text' name='username' placeholder='Enter Username' required><br>");
+        writer.println("<input type='email' name='email' placeholder='Enter Email' required><br>");
+        writer.println("<input type='submit' value='Register'>");
+        writer.println("</form>");
+        writer.println("</section>");
 
-            writer.println("<section>");
-            writer.println("<h2>Registration Successful</h2>");
-            writer.println("<p>Welcome, <strong>" + username + "</strong>! Your account has been created with email <strong>" + email + "</strong>.</p>");
-            writer.println("<p>Your starting balance is <strong>$0.00</strong>.</p>");
-            writer.println("<p><a href='transaction'>Go to Transactions &raquo;</a></p>");
-            writer.println("</section>");
-        } else {
-            writer.println("<section>");
-            writer.println("<h2>Create Your Account</h2>");
-            writer.println("<form method='GET' action='register'>");
-            writer.println("<input type='text' name='username' placeholder='Enter Username' required><br>");
-            writer.println("<input type='email' name='email' placeholder='Enter Email' required><br>");
-            writer.println("<input type='submit' value='Register'>");
-            writer.println("</form>");
-            writer.println("</section>");
-        }
+        writer.println("<section>");
+        writer.println("<a href='welcome'>&larr; Back to Welcome</a>");
+        writer.println("</section>");
+
+        writer.println("</body></html>");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        // Handle form submission when accessed via POST
+        HttpSession session = req.getSession(true);
+
+        String username = req.getParameter("username");
+        String email = req.getParameter("email");
+
+        // Save user data in session
+        session.setAttribute("username", username);
+        session.setAttribute("balance", 0.0); // initialize balance
+
+        resp.setContentType("text/html");
+        PrintWriter writer = resp.getWriter();
+
+        writer.println("<!DOCTYPE html>");
+        writer.println("<html><head><title>Register - MoneyWeb</title></head><body>");
+        writer.println("<header><h1>Register for MoneyWeb</h1></header>");
+
+        // Confirmation message
+        writer.println("<section>");
+        writer.println("<h2>Registration Successful</h2>");
+        writer.println("<p>Welcome, <strong>" + username + "</strong>! Your account has been created with email <strong>" + email + "</strong>.</p>");
+        writer.println("<p>Your starting balance is <strong>$0.00</strong>.</p>");
+        writer.println("<p><a href='transaction'>Go to Transactions &raquo;</a></p>");
+        writer.println("</section>");
 
         writer.println("<section>");
         writer.println("<a href='welcome'>&larr; Back to Welcome</a>");
