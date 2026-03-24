@@ -63,14 +63,24 @@ public class RegisterPage extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         writer.println("<!DOCTYPE html>");
-        writer.println("<html><head><title>Register - MoneyWeb</title></head><body>");
+        writer.println("<html><head><title>Register - MoneyWeb</title>");
+        writer.println("<style>");
+        writer.println("body { font-family: Arial; margin: 40px; background-color: #f4f6f8; }");
+        writer.println("header { background-color: #27ae60; color: white; padding: 15px; text-align: center; }");
+        writer.println("section { margin-top: 20px; padding: 20px; background: white; border-radius: 5px; text-align: center; }");
+        writer.println("input[type=text], input[type=email] { padding: 8px; margin: 10px; width: 250px; border: 1px solid #ccc; border-radius: 4px; }");
+        writer.println("input[type=submit] { background-color: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }");
+        writer.println("input[type=submit]:hover { background-color: #219150; }");
+        writer.println("a { color: #3498db; text-decoration: none; font-weight: bold; }");
+        writer.println("</style>");
+        writer.println("</head><body>");
         writer.println("<header><h1>Register for MoneyWeb</h1></header>");
 
         // Confirmation message
         writer.println("<section>");
         writer.println("<h2>Registration Successful</h2>");
         writer.println("<p>Welcome, <strong>" + username + "</strong>! Your account has been created with email <strong>" + email + "</strong>.</p>");
-        writer.println("<p>Your starting balance is <strong>$0.00</strong>.</p>");
+        writer.println("<p>Your starting balance is <strong>Ksh 0.00</strong>.</p>");
         writer.println("<p><a href='transaction'>Go to Transactions &raquo;</a></p>");
         writer.println("</section>");
 

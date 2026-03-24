@@ -45,7 +45,7 @@ public class TransactionPage extends HttpServlet {
         } else {
             writer.println("<h2>Welcome to MoneyWeb!</h2>");
         }
-        writer.println("<p>Your current balance is <strong>$" + String.format("%.2f", balance) + "</strong>.</p>");
+        writer.println("<p>Your current balance is <strong>Ksh" + String.format("%.2f", balance) + "</strong>.</p>");
         writer.println("</section>");
 
         // Transaction form (POST method now)
