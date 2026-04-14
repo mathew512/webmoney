@@ -9,10 +9,9 @@
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>moneyweb Maven Webapp</name>
-  <url>http://maven.apache.org</url>
 
   <properties>
-    <!-- Use your installed JDK version -->
+    <!-- Compile with Java 21 -->
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
   </properties>
@@ -26,7 +25,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Jakarta Servlet API (compile only, provided by WildFly at runtime) -->
+    <!-- Servlet API provided by WildFly at runtime -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
@@ -56,26 +55,36 @@
         <version>3.3.2</version>
       </plugin>
 
-      <!-- WildFly Maven Plugin -->
+      <!-- WildFly Maven Plugin for automatic deployment -->
       <plugin>
         <groupId>org.wildfly.plugins</groupId>
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>4.2.1.Final</version>
         <configuration>
-          <!-- Path to your WildFly installation -->
-          <jbossHome>C:/jboss/wildfly-39.0.1.Final</jbossHome>
+          <!-- Path to WildFly on macOS -->
+          <jbossHome>/Users/mathew/wildfly/wildfly-39.0.1.Final</jbossHome>
 
           <!-- Management connection -->
           <hostname>localhost</hostname>
           <port>9990</port>
 
-          <!-- Management user (must match add-user.sh / add-user.bat setup) -->
+          <!-- Management user (must match add-user.sh setup) -->
           <username>admin</username>
           <password>admin123</password>
 
           <!-- Deployment filename -->
           <filename>${project.build.finalName}.war</filename>
         </configuration>
+        <executions>
+          <!-- Deploy automatically after packaging -->
+          <execution>
+            <id>deploy-on-package</id>
+            <phase>package</phase>
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
